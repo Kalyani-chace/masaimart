@@ -4,6 +4,8 @@ import Card from "./Card";
 import { useMediaQuery } from "react-responsive";
 
 const Products = () => {
+  const [select, setSelect] = useState("ASC");
+
   const [products, setProducts] = useState();
   const [limit, setLimit] = useState(12);
   let response;
@@ -14,6 +16,21 @@ const Products = () => {
     count++;
     // setLimit();
   };
+  //   const select = localStorage.getItem("select");
+  console.log("select in products", select);
+  let sortedProducts;
+  useEffect(() => {
+    console.log("sdfsdf");
+    const sortItems = () => {
+      sortedProducts = products?.sort((a, b) => {
+        console.log("a,b", a, b);
+        return a.price - b.price;
+      });
+      console.log("sortedProducts", sortedProducts);
+      setProducts(sortedProducts);
+    };
+    sortItems();
+  }, [select, sortedProducts]);
 
   useEffect(() => {
     console.log(".....");
@@ -29,8 +46,18 @@ const Products = () => {
 
     fetchData();
   }, [response]);
+  useEffect(() => {}, [products]);
   return (
-    <div>
+    <div className="mt-[100px]">
+      <select
+        id="sort"
+        class="bg-[#38bdf8] "
+        onChange={(e) => setSelect(e.target.value)}
+      >
+        <option selected>Sort</option>
+        <option value="ASC">Low-High</option>
+        <option value="DSC">High-Low</option>
+      </select>
       <div
         className={`grid ${
           isSmallMobile

@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const [select, setSelect] = useState();
+  const [select, setSelect] = useState("ASC");
 
-  const handdleChange = () => {
-    console.log("clickkkkk");
-    // console.log(e.target.value);
-  };
+  console.log("select", select);
+  useEffect(() => {
+    window.localStorage.setItem("select", JSON.stringify(select));
+  }, [select]);
   return (
     <div className="bg-[#38bdf8] flex justify-between w-[full] fixed top-0 right-0 left-0 z-50 h-[70px] items-center">
       <div className="ml-[30px] ">MasaiMart</div>
@@ -19,13 +19,15 @@ const Navbar = () => {
           <div className="cursor-pointer">WishList</div>
         </Link>
       </div>
-      <select id="sort" class="bg-[#38bdf8] ">
-        <option selected onChange={handdleChange}>
-          Sort
-        </option>
+      {/* <select
+        id="sort"
+        class="bg-[#38bdf8] "
+        onChange={(e) => setSelect(e.target.value)}
+      >
+        <option selected>Sort</option>
         <option value="ASC">Low-High</option>
         <option value="DSC">High-Low</option>
-      </select>
+      </select> */}
       {/* <select placeholder="Sort">
         <option value=""></option>
       </select> */}
