@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import Heart from "./icons/Heart";
 
-const Card = ({ img, price, category, title, brand }) => {
+const Card = ({ img, price, category, title, brand, ele }) => {
+  const [wishlistData, setWishListData] = useState(
+    JSON.parse(localStorage.getItem("wishlist"))
+      ? JSON.parse(localStorage.getItem("wishlist"))
+      : []
+  );
+  const handleWishList = () => {
+    console.log("wishlist clicked");
+    setWishListData([...wishlistData, ele]);
+    console.log("wishlistData", wishlistData);
+    window.localStorage.setItem("wishlist", JSON.stringify(wishlistData));
+  };
   return (
     <div className="shadow-xl flex flex-col w-[100%] rounded-[20px]">
       <div>
@@ -11,7 +22,10 @@ const Card = ({ img, price, category, title, brand }) => {
             <div>{title}</div>
             <div>₹ {price}</div>
           </div>
-          <Heart />
+          <button onClick={handleWishList}>
+            <Heart />
+          </button>
+
           {/* <div>{brand}</div> */}
         </div>
       </div>

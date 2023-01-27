@@ -8,10 +8,9 @@ import WishLisst from "./components/WishLisst";
 function App() {
   return (
     <>
-      <Navbar />
-
       <BrowserRouter>
         <div className="App ">
+          <Navbar />
           <Routes>
             <Route path="/" element={<Products />}></Route>
             <Route path="/wishlist" element={<WishLisst />}></Route>
